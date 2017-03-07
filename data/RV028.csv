@@ -1,0 +1,92 @@
+name,population
+Harju maakond,575933
+..Kehra linn (vallasisene)*,2685
+..Keila linn,9668
+..Loksa linn,2649
+..Maardu linn,16135
+..Paldiski linn,3912
+..Saue linn,5705
+..Tallinn,418601
+Hiiu maakond,8965
+..Kärdla linn (vallasisene)*,3155
+Ida-Viru maakond,147052
+..Jõhvi linn (vallasisene)*,10411
+..Kiviõli linn,5466
+..Kohtla-Järve linn,36275
+..Narva linn,58290
+..Narva-Jõesuu linn,2624
+..Püssi linn (vallasisene)*,978
+..Sillamäe linn,13825
+Jõgeva maakond,31069
+..Jõgeva linn,5409
+..Mustvee linn,1317
+..Põltsamaa linn,4143
+Järva maakond*,30409
+..Paide linn,8092
+..Türi linn (vallasisene)*,5253
+Lääne maakond,24325
+..Haapsalu linn,10153
+..Lihula linn (vallasisene),1242
+Lääne-Viru maakond*,59253
+..Kunda linn,3180
+..Rakvere linn,15525
+..Tamsalu linn (vallasisene)*,2197
+..Tapa linn (vallasisene)*,5592
+Põlva maakond,27828
+..Põlva linn (vallasisene)*,5638
+..Räpina linn (vallasisene)*,2273
+Pärnu maakond,82673
+..Kilingi-Nõmme linn (vallasisene)*,1722
+..Pärnu linn,39806
+..Sindi linn,3947
+Rapla maakond,34292
+..Rapla linn (vallasisene)*,5160
+Saare maakond,32593
+..Kuressaare linn,13229
+Tartu maakond,148190
+..Elva linn,5673
+..Kallaste linn,813
+..Tartu linn,95510
+Valga maakond,30234
+..Otepää linn (vallasisene),1917
+..Tõrva linn,2755
+..Valga linn,12492
+Viljandi maakond,47432
+..Abja-Paluoja linn (vallasisene),1098
+..Karksi-Nuia linn (vallasisene),1569
+..Mõisaküla linn,789
+..Suure-Jaani linn (vallasisene)*,1060
+..Viljandi linn,17705
+..Võhma linn,1300
+Võru maakond,33573
+..Antsla linn (vallasisene),1343
+..Võru linn,12444
+Maakond teadmata,787
+,
+,
+* Muudatusi haldusjaotuses vaata mõisted ja metoodika rubriigist ,
+''Klassifikaatorid''. ,
+"** Linnaliste asulate hulka on arvestatud linnad, vallasisesed linnad ",
+"ja alevid, maa-asulate hulka alevikud ja külad. ",
+Alates 1. jaanuarist 2016 on Statistikaametis kasutusel uus rahvaarvu ,
+"arvutamise metoodika ja inimeste elukoha allikas, mida tuleb muutuste ",
+analüüsimisel arvestada. Elukohaks on isikute ,
+"rahvastikuregistrijärgne elukoht, selle puudumisel kajastuvad isikud ",
+jaotises ''Maakond teadmata''. Täpsem info mõistete ja metoodika all.,
+,
+,
+LAST-UPDATED,2016-05-05
+,
+,
+SOURCE:,Statistikaamet
+,
+COPYRIGHT,
+,
+UNIT:,Väärtus
+,
+,
+,
+,
+,
+,
+MATRIX:,RV028
