@@ -8,9 +8,9 @@
     <body>
         <div>
             <div class="sidebar">
-                <ul class="place-list" data-bind="foreach: placeList">
-                    <li data-bind="text: name">tere</li>
-                </ul>
+                <div class="place-list" data-bind="foreach: placeList">
+                    <p data-bind="text: name, click: $parent.listClick"></p>
+                </div>
             </div>
             <div id="map"></div>
         </div>
