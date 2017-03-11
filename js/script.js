@@ -30,10 +30,26 @@ function initMap() {
             new google.maps.Marker({
                 position: d.latlng,
                 map: map,
-                title: d.name,
+                title: d.name
               //  icon: image
             });
-        })
+        });
+
+        var Place = function(data){
+            this.name = ko.observable(data.name);
+            this.latlng = ko.observable(data.latlng);
+            this.population = ko.observable(data.population);
+        };
+
+        var ViewModel = function(data){
+            var self = this;
+            this.placeList = ko.observableArray([]);
+            data.forEach(function(d){
+                self.placeList.push(new Place(d))
+            })
+        };
+
+        ko.applyBindings(new ViewModel(data));
 
 
     }

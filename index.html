@@ -6,11 +6,19 @@
         <script type="application/json" id="cities-data" src="data/cities.json"></script>
     </head>
     <body>
-        <div id="map"></div>
+        <div>
+            <div class="sidebar">
+                <ul class="place-list" data-bind="foreach: placeList">
+                    <li data-bind="text: name">tere</li>
+                </ul>
+            </div>
+            <div id="map"></div>
+        </div>
+        <script src="js/knockout-3.4.2.js"></script>
         <script src="js/script.js"></script>
         <script src="js/tranform_and_geocode_data.js"></script>
         <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=KEY&v=3&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=KEY&v=3&callback=initMap">
         </script>
     </body>
 </html>

@@ -6,6 +6,26 @@ body {
   padding: 0;
 }
 
-#map {
+.container {
   height: 100%;
+}
+
+.sidebar {
+  background: #fff;
+  border: 1px solid #999;
+  border-radius: 3px;
+  line-height: 30px;
+  height: 100vh;
+  padding: 10px 10px 30px 10px;
+  text-align: left;
+  width: 240px;
+  overflow: auto;
+}
+
+#map {
+  bottom:0;
+  height: 100%;
+  left: 250px;
+  position: absolute;
+  right: 0;
 }
