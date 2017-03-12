@@ -3,6 +3,9 @@ function initMap() {
     //transformAndGeocode();
 
     d3.json("data/cities.json",function(error,data){
+        data.forEach(function(d){
+            d.name = d.name.split(" ")[0];
+        });
         init(data);
     });
 
@@ -14,10 +17,6 @@ function initMap() {
             zoom: 7
         });
 
-        data.forEach(function(d){
-
-        });
-
         var Place = function(data){
             this.name = ko.observable(data.name);
             this.latlng = ko.observable(data.latlng);
@@ -26,10 +25,8 @@ function initMap() {
 
         var ViewModel = function(data){
             var self = this;
+            this.searchBox = document.getElementById("place-search");
             this.placeList = ko.observableArray([]);
-            data.forEach(function(d){
-                self.placeList.push(new Place(d))
-            });
 
             this.markers = data.map(function(d,i){
                 return new google.maps.Marker({
@@ -42,16 +39,39 @@ function initMap() {
 
             this.filterMarkers = function(inputStr){
                 self.markers.forEach(function(m){
-                    m.setMap(m.title.indexOf(inputStr) == -1 ? null : map);
-                })
+                    m.setMap( strSearch(m.title,inputStr) ? map : null);
+                });
+                self.placeList.remove(function(item){
+                    return item.name().toLowerCase().indexOf(inputStr.toLowerCase()) == -1;
+                });
+                self.pushMissingListItems(inputStr);
+            };
+
+            this.pushMissingListItems = function(searchString){
+                searchString = searchString == undefined ? "" : searchString;
+                var activePlaceNames = self.placeList().map(function(d){return d.name()});
+                data.forEach(function(d){
+                    if (strSearch(d.name,searchString) && activePlaceNames.indexOf(d.name) == -1)
+                        self.placeList.push(new Place(d))
+                });
             };
 
             this.listClick = function(){
                 self.filterMarkers(this.name());
             };
+
+            this.searchBox.addEventListener("keyup",function(e){
+                self.filterMarkers(this.value);
+            });
+
+            self.pushMissingListItems();
         };
 
         ko.applyBindings(new ViewModel(data));
+    }
+
+    function strSearch(longer, shorter){
+        return longer.toLowerCase().indexOf(shorter.toLowerCase()) > -1;
     }
 
 }
