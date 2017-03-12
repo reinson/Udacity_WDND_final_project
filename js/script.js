@@ -29,12 +29,15 @@ function initMap() {
             this.placeList = ko.observableArray([]);
 
             this.markers = data.map(function(d,i){
-                return new google.maps.Marker({
+                var marker = new google.maps.Marker({
                     position: d.latlng,
                     map: map,
+                    animation: google.maps.Animation.DROP,
                     title: d.name,
                     id: i
                 });
+                marker.addListener('click', toggleBounce);
+                return marker;
             });
 
             this.filterMarkers = function(inputStr){
@@ -72,6 +75,14 @@ function initMap() {
 
     function strSearch(longer, shorter){
         return longer.toLowerCase().indexOf(shorter.toLowerCase()) > -1;
+    }
+    
+    function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+             marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
     }
 
 }
