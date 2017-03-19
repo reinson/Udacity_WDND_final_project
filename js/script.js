@@ -80,6 +80,13 @@ function initMap() {
                 toggleInfowindow(marker,largeInfowindow);
             };
 
+            this.searchBox.onkeypress = function(e){
+                // http://stackoverflow.com/questions/585396/how-to-prevent-enter-keypress-to-submit-a-web-form
+                 e = e || event;
+                 var txtArea = /textarea/i.test((e.target || e.srcElement).tagName);
+                 return txtArea || (e.keyCode || e.which || e.charCode || 0) !== 13;
+            };
+
             this.searchBox.addEventListener("keyup",function(e){
                 self.filterMarkers(this.value);
             });
