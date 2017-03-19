@@ -1,17 +1,33 @@
 
-function transformAndGeocode(){
+function transformAndGeocode(strSearch){
+    // Reads in data file and finds latlong coordinates of cities using Google maps geocoder.
     d3.csv("data/RV028.csv",function(error,data) {
-        data = data.filter(function (d) {
-            return d.name.slice(0, 2) == "..";
-        });
-        data.forEach(function (d) {
-            d.name = d.name.slice(2).split("(")[0];
-        });
+
+        // Filter and transform data
+        data = data
+            .filter(function (d) {
+                return d.name.slice(0, 2) == "..";
+            })
+            .filter(function(d){
+                return strSearch(d.name,"linn");
+            })
+            .filter(function(d){
+                return !strSearch(d.name,"linnaosa")
+            })
+            .filter(function(d){
+                return +d.population;
+            })
+            .map(function(d){
+                d.name = d.name.split(" ")[0];
+                d.name = d.name.split(".")[d.name.split(".").length-1];
+                return d;
+            });
 
 
+        // Find coordinates using Google maps api
         var geocoder = new google.maps.Geocoder();
 
-        function timeout(i) {
+        function timeout(i) { // Loops through ~50 cities with 1 second intervals to avoid google maps API rps limits
             setTimeout(function () {
                 if (i <= data.length - 1){
                     var town = data[i];
@@ -29,6 +45,8 @@ function transformAndGeocode(){
                     i++;
                     timeout(i);
                 } else {
+                    // Log json string to console in the end
+                    // Copy paste to file
                     console.log(JSON.stringify(data));
                 }
             }, 1000);

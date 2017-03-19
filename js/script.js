@@ -1,7 +1,10 @@
 var map;
 function initMap() {
-    //transformAndGeocode();
-    d3.json("udacity_google_maps/data/cities.json",function(error,data){
+
+    // Uncomment this line to generate city data with latlng coordinates
+    //transformAndGeocode(strSearch); return;
+
+    d3.json("data/cities.json",function(error,data){
         data.forEach(function(d){
             d.name = d.name.split(" ")[0];
         });
