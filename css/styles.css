@@ -29,18 +29,22 @@ header {
   color: white;
 }
 
-.burger-icon {
+#sidebar-toggle {
   padding: 7px;
-  width: 5%;
+  width: 40px;
   float: left;
+  margin-left: 10px;
+  cursor: pointer ;
 }
 
 header h1 {
-  width: 95%;
+  width: calc(100% - 50px);
   float:right;
   margin: auto;
   text-align: center;
-  padding: 5px;
+  padding: 10px;
+  font-size: 1.5em;
+
 }
 
 .container {
@@ -73,6 +77,10 @@ header h1 {
   }
   .visible-sidebar {
     transform: translate(-200px,0);
+  }
+  header h1 {
+    font-size: 2em;
+    padding: 5px;
   }
 }
 
