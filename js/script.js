@@ -53,7 +53,7 @@ function initMap() {
             this.filterMarkers = function(inputStr){
                 // Hide markers that do not match with the given search string
                 self.markers.forEach(function(m){
-                    m.setMap( strSearch(m.title,inputStr) ? map : null);
+                    m.setVisible( strSearch(m.title,inputStr));
                 });
 
                 // Hide/show places in the list
