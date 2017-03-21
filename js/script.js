@@ -85,6 +85,8 @@ function initMap() {
 
             this.searchBox.addEventListener("keyup",function(e){
                 self.filterMarkers(this.value);
+                // Close the info window if it is open
+                if (largeInfowindow.marker) toggleInfowindow(largeInfowindow.marker,largeInfowindow,map);
             });
 
             this.toggleSidebar = function(){
@@ -168,7 +170,7 @@ function initMap() {
             map.panTo(marker.getPosition());
             wikiRequest(marker,infowindow);
             marker.setAnimation(google.maps.Animation.BOUNCE);
-        } else { // currently active marker is clicked
+        } else { // currently active marker is clicked or typed into the search box
             infowindow.marker = null;
             infowindow.close();
             marker.setAnimation(null);
