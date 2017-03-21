@@ -24,15 +24,16 @@ function initMap() {
         });
 
         var Place = function(data){ // Class for towns and cities.
-            this.name = ko.observable(data.name);
-            this.latlng = ko.observable(data.latlng);
-            this.population = ko.observable(data.population);
+            this.name = data.name;
+            this.latlng = data.latlng;
+            this.population = data.population;
+            this.show = ko.observable(true);
         };
 
         var ViewModel = function(data){
             var self = this;
             this.searchBox = document.getElementById("place-search");
-            this.placeList = ko.observableArray([]);
+            this.placeList = [];
 
             this.markers = data.map(function(d){
                 var marker = new google.maps.Marker({
@@ -55,28 +56,14 @@ function initMap() {
                     m.setMap( strSearch(m.title,inputStr) ? map : null);
                 });
 
-                // Remove places from list (ko.observableArray)
-                self.placeList.remove(function(item){
-                    return !strSearch(item.name(),inputStr);
-                });
-
-                // Add names back to 'self.placeList' if they have started to match the search string again
-                self.pushMissingListItems(inputStr);
-            };
-
-            this.pushMissingListItems = function(searchString){
-                // Add places that matches the search string to 'self.placeList'
-                searchString = searchString == undefined ? "" : searchString;
-                var activePlaceNames = self.placeList().map(function(d){return d.name()});
-                data.forEach(function(d){
-                    // Add place to the list if it matches the search string and is not already there
-                    if (strSearch(d.name,searchString) && activePlaceNames.indexOf(d.name) == -1)
-                        self.placeList.push(new Place(d))
+                // Hide/show places in the list
+                self.placeList.forEach(function(item){
+                    item.show(strSearch(item.name,inputStr));
                 });
             };
 
             this.listClick = function(){
-                var name = this.name();
+                var name = this.name;
                 var marker = self.markers.filter(function(d){
                     return d.title == name;
                 })[0];
@@ -102,7 +89,9 @@ function initMap() {
                 e.stopPropagation();
             });
 
-            self.pushMissingListItems();
+            data.forEach(function(d){
+                self.placeList.push(new Place(d))
+            });
 
             drawLegend()
         };
@@ -220,7 +209,7 @@ function initMap() {
                 type: "GET",
                 url: "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles="+marker.title+"&callback=?",
                 contentType: "application/json; charset=utf-8",
-                async: false,
+                async: true,
                 dataType: "json",
                 success: function (data, textStatus, jqXHR) {
                     if (textStatus == "success" && data.query){

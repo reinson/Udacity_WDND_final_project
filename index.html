@@ -27,7 +27,7 @@
             </form>
             <hr>
             <div class="place-list" data-bind="foreach: placeList">
-                <p data-bind="text: name, click: $parent.listClick"></p>
+                <p data-bind="text: name, click: $parent.listClick, visible: show"></p>
             </div>
         </div>
         <div class="container">
