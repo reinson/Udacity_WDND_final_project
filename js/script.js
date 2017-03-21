@@ -94,10 +94,10 @@ function initMap() {
             };
 
             data.forEach(function(d){
-                self.placeList.push(new Place(d))
+                self.placeList.push(new Place(d));
             });
 
-            drawLegend()
+            drawLegend();
         };
 
         ko.applyBindings(new ViewModel(data));
@@ -145,8 +145,8 @@ function initMap() {
                 return "translate(" + legendScale(d)*width + ",60)";
             })
             .append("text")
-            .attr("text-anchor",function(d){return d==1 ? "start" : "middle"})
-            .text(function(d){return d});
+            .attr("text-anchor",function(d){return d==1 ? "start" : "middle";})
+            .text(function(d){return d;});
     }
 
     function strSearch(longer, shorter){
@@ -224,7 +224,7 @@ function initMap() {
                             infowindow.setContent('<h3>'+marker.title+'</h3>' +
                                 '<div class="population-value"><i class="fa fa-male" aria-hidden="true"></i> '+marker.data.population+'</div> '+
                                 '<div class="wiki-header"><i>Description from Wikipedia</i></div>'+
-                                '<div id="windowText">'+wikiExtract+'</div>')
+                                '<div id="windowText">'+wikiExtract+'</div>');
                         } else {
                             setContentToError();
                         }
