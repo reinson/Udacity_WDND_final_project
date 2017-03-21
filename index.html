@@ -15,10 +15,12 @@
     </head>
     <body>
         <header>
-            <div class="burger-icon" id="sidebar-toggle"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></div>
+            <div class="burger-icon" id="sidebar-toggle" data-bind="click: toggleSidebar">
+                <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+            </div>
             <h1>Cities and towns of Estonia</h1>
         </header>
-        <div class="sidebar">
+        <div class="sidebar" data-bind="css:{ 'visible-sidebar': sidebarStatus() } ">
             <svg id="legend" width="172px" height="70px"></svg>
             <hr>
             <form>

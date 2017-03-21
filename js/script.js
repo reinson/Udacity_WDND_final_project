@@ -17,6 +17,8 @@ function initMap() {
             maxWidth: 200
         });
 
+        var sidebar = document.getElementsByClassName("sidebar")[0];
+
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 58.7413549, lng: 24.9980244},
             minZoom: 6,
@@ -34,6 +36,8 @@ function initMap() {
             var self = this;
             this.searchBox = document.getElementById("place-search");
             this.placeList = [];
+            // Initialize sidebarStatus, depends on css media query result
+            this.sidebarStatus = ko.observable(sidebar.className.indexOf("visible-sidebar") > -1);
 
             this.markers = data.map(function(d){
                 var marker = new google.maps.Marker({
@@ -81,13 +85,9 @@ function initMap() {
                 self.filterMarkers(this.value);
             });
 
-            var sidebar = document.getElementsByClassName("sidebar")[0];
-            var menuIcon = document.getElementById("sidebar-toggle");
-
-            menuIcon.addEventListener("click",function(e){
-                sidebar.classList.toggle("visible-sidebar");
-                e.stopPropagation();
-            });
+            this.toggleSidebar = function(){
+                self.sidebarStatus(!self.sidebarStatus());
+            };
 
             data.forEach(function(d){
                 self.placeList.push(new Place(d))
