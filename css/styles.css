@@ -103,7 +103,8 @@ header h1 {
 }
 
 #windowText {
-    max-height:250px;
+    max-height: calc(50vh - 180px);
+    min-height: 40px;
     overflow-y:auto;
 }
 

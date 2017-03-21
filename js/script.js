@@ -14,7 +14,9 @@ function initMap() {
     function init(data) {
 
         var largeInfowindow = new google.maps.InfoWindow({
-            maxWidth: 200
+            maxWidth: 200,
+            maxHeight: 100,
+            disableAutoPan: false
         });
 
         var sidebar = document.getElementsByClassName("sidebar")[0];
@@ -49,7 +51,7 @@ function initMap() {
                     data: d
                 });
                 marker.addListener('click', function(){
-                    toggleInfowindow(this,largeInfowindow);
+                    toggleInfowindow(this,largeInfowindow,map);
                 });
                 return marker;
             });
@@ -71,7 +73,7 @@ function initMap() {
                 var marker = self.markers.filter(function(d){
                     return d.title == name;
                 })[0];
-                toggleInfowindow(marker,largeInfowindow);
+                toggleInfowindow(marker,largeInfowindow,map);
             };
 
             this.searchBox.onkeypress = function(e){
@@ -150,7 +152,7 @@ function initMap() {
         return longer.toLowerCase().indexOf(shorter.toLowerCase()) > -1;
     }
 
-    function toggleInfowindow(marker,infowindow){
+    function toggleInfowindow(marker,infowindow,map){
         // 'infowindow.marker' is the currently active marker
         
         if (infowindow.marker != marker){ // A new marker is clicked
@@ -163,6 +165,7 @@ function initMap() {
                 infowindow.marker = null;
                 marker.setAnimation(null);
             });
+            map.panTo(marker.getPosition());
             wikiRequest(marker,infowindow);
             marker.setAnimation(google.maps.Animation.BOUNCE);
         } else { // currently active marker is clicked
