@@ -18,12 +18,12 @@
             <svg id="legend" width="172px" height="70px"></svg>
             <hr>
             <form>
-                <input type="text" id="place-search" size="10">
+                <input type="text" id="place-search" size="10" data-bind="textInput: filterKeyword">
                 <label for="place-search"><i class="fa fa-filter" aria-hidden="true"></i> Filter</label>
             </form>
             <hr>
-            <div class="place-list" data-bind="foreach: placeList">
-                <p data-bind="text: name, click: $parent.listClick, visible: show"></p>
+            <div class="place-list" data-bind="foreach: filteredPlaces">
+                <p data-bind="text: name, click: $parent.listClick"></p>
             </div>
         </div>
         <main class="container">

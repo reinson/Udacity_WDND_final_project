@@ -28,17 +28,9 @@ function initMap() {
             zoom: 7
         });
 
-        var Place = function(data){ // Class for towns and cities.
-            this.name = data.name;
-            this.latlng = data.latlng;
-            this.population = data.population;
-            this.show = ko.observable(true);
-        };
-
         var ViewModel = function(data){
             var self = this;
-            this.searchBox = document.getElementById("place-search");
-            this.placeList = [];
+            this.placeList = ko.observableArray(data);
             // Initialize sidebarStatus, depends on css media query result
             this.sidebarStatus = ko.observable(sidebar.className.indexOf("visible-sidebar") > -1);
 
@@ -63,10 +55,8 @@ function initMap() {
                     m.setVisible( strSearch(m.title,inputStr));
                 });
 
-                // Hide/show places in the list
-                self.placeList.forEach(function(item){
-                    item.show(strSearch(item.name,inputStr));
-                });
+                // Close the info window if it is open
+                if (largeInfowindow.marker) toggleInfowindow(largeInfowindow.marker,largeInfowindow,map);
             };
 
             this.listClick = function(){
@@ -77,28 +67,26 @@ function initMap() {
                 toggleInfowindow(marker,largeInfowindow,map);
             };
 
-            this.searchBox.onkeypress = function(e){
-                // http://stackoverflow.com/questions/585396/how-to-prevent-enter-keypress-to-submit-a-web-form
-                 e = e || event;
-                 var txtArea = /textarea/i.test((e.target || e.srcElement).tagName);
-                 return txtArea || (e.keyCode || e.which || e.charCode || 0) !== 13;
-            };
-
-            this.searchBox.addEventListener("keyup",function(e){
-                self.filterMarkers(this.value);
-                // Close the info window if it is open
-                if (largeInfowindow.marker) toggleInfowindow(largeInfowindow.marker,largeInfowindow,map);
-            });
-
             this.toggleSidebar = function(){
                 self.sidebarStatus(!self.sidebarStatus());
             };
 
-            data.forEach(function(d){
-                self.placeList.push(new Place(d));
+            this.filterKeyword = ko.observable("");
+
+            this.filteredPlaces = ko.computed(function(){
+                // Filter Google Maps markers
+                self.filterMarkers(self.filterKeyword());
+                if (!self.filterKeyword()){
+                    return self.placeList();
+                } else {
+                    return ko.utils.arrayFilter(self.placeList(), function(d){
+                        return strSearch(d.name,self.filterKeyword())
+                    })
+                }
             });
 
             drawLegend();
+            blockEnterInInput();
         };
 
         ko.applyBindings(new ViewModel(data));
@@ -148,6 +136,17 @@ function initMap() {
             .append("text")
             .attr("text-anchor",function(d){return d==1 ? "start" : "middle";})
             .text(function(d){return d;});
+    }
+
+    function blockEnterInInput(){
+        // Avoid page refresh on pressing enter
+        // Especially important in mobile
+        document.getElementById("place-search").onkeypress = function(e){
+             // http://stackoverflow.com/questions/585396/how-to-prevent-enter-keypress-to-submit-a-web-form
+             e = e || event;
+             var txtArea = /textarea/i.test((e.target || e.srcElement).tagName);
+             return txtArea || (e.keyCode || e.which || e.charCode || 0) !== 13;
+        };
     }
 
     function strSearch(longer, shorter){
