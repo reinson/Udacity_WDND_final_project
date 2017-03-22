@@ -243,3 +243,7 @@ function initMap() {
         });
     }
 }
+
+function mapsErrorHandler(){
+    alert("Unable to connect to Google Maps")
+}
