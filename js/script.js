@@ -225,7 +225,7 @@ function initMap() {
                 }
             });
             function setContentToError(){
-                var errorMessage = "There was a probel with the wikipedia request";
+                var errorMessage = "There was a problem with the wikipedia request";
                 infowindow.setContent('<div>'+errorMessage+'</div>');
             }
         });
