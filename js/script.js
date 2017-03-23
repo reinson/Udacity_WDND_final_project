@@ -86,7 +86,6 @@ function initMap() {
             });
 
             drawLegend();
-            blockEnterInInput();
         };
 
         ko.applyBindings(new ViewModel(data));
@@ -136,17 +135,6 @@ function initMap() {
             .append("text")
             .attr("text-anchor",function(d){return d==1 ? "start" : "middle";})
             .text(function(d){return d;});
-    }
-
-    function blockEnterInInput(){
-        // Avoid page refresh on pressing enter
-        // Especially important in mobile
-        document.getElementById("place-search").onkeypress = function(e){
-             // http://stackoverflow.com/questions/585396/how-to-prevent-enter-keypress-to-submit-a-web-form
-             e = e || event;
-             var txtArea = /textarea/i.test((e.target || e.srcElement).tagName);
-             return txtArea || (e.keyCode || e.which || e.charCode || 0) !== 13;
-        };
     }
 
     function strSearch(longer, shorter){
